@@ -10,5 +10,10 @@ namespace ToeTacTic
     {
         public String Name { get; set; }
         public GameScore Score { get; set; }
+
+        public Player(String name)
+        {
+            this.Name = name; 
+        }
     }
 }

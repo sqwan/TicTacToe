@@ -21,6 +21,25 @@ namespace ToeTacTic
 
             return isDiagonalComplete(board);
         }
+        public Boolean isPat(GameBoard board)
+        {
+            if (this.IsGameOver(board))
+            {
+                return false; 
+            }
+
+            for (int row = 0; row < 3; row++)
+            {
+                for (int column = 0; column < 3; column++)
+                {
+                    if (board.GameBoardArray[row, column] == null)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
 
         public Boolean IsMoveAllowed(GameBoard board, Point atPosition)
         {
