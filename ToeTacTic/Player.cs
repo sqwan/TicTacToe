@@ -10,6 +10,5 @@ namespace ToeTacTic
     {
         public String Name { get; set; }
         public GameScore Score { get; set; }
-
     }
 }
