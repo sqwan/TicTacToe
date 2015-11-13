@@ -8,20 +8,38 @@ namespace ToeTacTic
 {
     class GameBoard
     {
-        public Player[,] GameBoardArray { get; private set; }
+        public GameBoardField[,] GameBoardArray { get; private set; }
+        private GameVerifier Verifier;
 
-        public GameBoard()
+        public GameBoard(GameVerifierFactory verifierFactory)
         {
-            this.GameBoardArray = new Player[3, 3];
+            this.Verifier = verifierFactory.getVerifier(this); ;
+            this.GameBoardArray = new GameBoardField[3, 3];
         }
-        public GameBoard(int rowsAndColums)
+        public GameBoard(int rowsAndColums, GameVerifierFactory verifierFactory)
         {
-            this.GameBoardArray = new Player[rowsAndColums,rowsAndColums];
+            this.Verifier = verifierFactory.getVerifier(this);
+            this.GameBoardArray = new GameBoardField[rowsAndColums,rowsAndColums];
         }
 
-        public void insertMoveInGameBoard(Player player, Point position)
+        public EnumTest insertMoveInGameBoard(Player player, Point position)
         {
-            this.GameBoardArray[position.X, position.Y] = player;
+            if (this.Verifier.IsMoveAllowed(position))
+            {
+                return EnumTest.MoveNotAllowed;
+            }
+            
+            this.GameBoardArray[position.X, position.Y].selectedByPlayer = player;
+
+            if (this.Verifier.IsGameOver())
+            {
+                return EnumTest.GameOver;
+            }
+            if (this.Verifier.isPat())
+            {
+                return EnumTest.Pat;
+            }
+            return EnumTest.None;
         }
     }
 }

@@ -12,19 +12,19 @@ namespace ToeTacTic
     {
         private Player[] Player;
         private GameBoard Board;
-        private GameVerifier Verifier;
         private int currentPlayer = 0;
-        private Boolean isGameOver = false;
+        private EnumTest GameStatus = EnumTest.None;
 
         public GameController(String nameOfPlayer1, String nameOfPlayer2, int boardSize)
         {
             this.Player = new Player[2];
             this.Player[0] = new Player(nameOfPlayer1);
             this.Player[1] = new Player(nameOfPlayer2);
+            
 
-            this.Board = new GameBoard(boardSize);
+            this.Board = new GameBoard(boardSize, new GameVerifierFactory(VerifierType.Classic));
 
-            this.Verifier = new GameVerifier();
+            
 
             Random random = new Random();
             this.currentPlayer = random.Next(0, 2);
@@ -32,7 +32,7 @@ namespace ToeTacTic
 
         public void Turn(Player player, Point point)
         {
-            if (isGameOver)
+            if (this.GameStatus == EnumTest.GameOver || this.GameStatus == EnumTest.Pat)
             {
                 MessageBox.Show("Das Spiel ist um du spast!");
                 return;
@@ -42,26 +42,25 @@ namespace ToeTacTic
                 MessageBox.Show("Chill mal. Du bist nicht dran!");
                 return;
             }
-            if(this.Verifier.IsMoveAllowed(this.Board, point))
+
+            this.GameStatus = this.Board.insertMoveInGameBoard(player, point);
+
+            if (this.GameStatus == EnumTest.MoveNotAllowed)
             {
                 MessageBox.Show("#Darf er dass?");
                 return;
             }
 
-            this.Board.insertMoveInGameBoard(player, point);
-
-            if (this.Verifier.IsGameOver(this.Board))
+            if (this.GameStatus == EnumTest.GameOver)
             {
-                this.isGameOver = true;
                 this.Player[this.currentPlayer].Score.Wins++;
                 this.Player[1-this.currentPlayer].Score.Defeats++;
                 MessageBox.Show("Gewonnen!");
                 return;
             }
 
-            if (this.Verifier.isPat(this.Board))
+            if (this.GameStatus == EnumTest.Pat)
             {
-                this.isGameOver = true;
                 this.Player[this.currentPlayer].Score.Pats++;
                 this.Player[1 - this.currentPlayer].Score.Pats++;
                 MessageBox.Show("Ihr Kacknoobs. Keiner hat gewonnen!");
