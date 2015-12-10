@@ -11,9 +11,20 @@ using System.Windows.Forms;
 namespace ToeTacTic {
     public partial class GameBoardControl : UserControl {
 
-        private int offset = 0;
-        public int Column { get; private set; }
-        public int Row { get; private set; }
+        public delegate void FieldClickedDelegate(Object sender, Point point);
+        public event FieldClickedDelegate FieldClicked;
+
+        // Diese Liste wird immer im Event neu gesetzt und ist bloß ein Abbild der Liste aus dem GameController.cs
+        private List<TurnMadeEventArgs> turnMadeEventArgsList = new List<TurnMadeEventArgs>();
+
+        public int Column {
+            get;
+            private set;
+        }
+        public int Row {
+            get;
+            private set;
+        }
 
         public GameBoardControl(int height, int width) {
             InitializeComponent();
@@ -22,7 +33,7 @@ namespace ToeTacTic {
         }
 
         public GameBoardControl() {
-            //InitializeComponent();
+            InitializeComponent();
         }
 
         private void GameBoardControl_Paint(object sender, PaintEventArgs e) {
@@ -43,6 +54,7 @@ namespace ToeTacTic {
                 positionY += rectHeight;
                 positionX = 0;
             }
+            paintSymboles();
         }
 
         private void GameBoardControl_Click(object sender, EventArgs e) {
@@ -51,10 +63,41 @@ namespace ToeTacTic {
 
             // Algorithmus ob man ein hurensohn ist
             column = column / (Width / 3);
-            row = row / (Height/ 3);
+            row = row / (Height / 3);
 
-            MessageBox.Show(row + " - " + column);
+            //MessageBox.Show(row + " - " + column);
+            FieldClicked.Invoke(this, new Point(row, column));
         }
 
+        public void paintSymboles() {
+            Graphics graphics = this.CreateGraphics();
+            foreach (TurnMadeEventArgs eventArgs in turnMadeEventArgsList) {
+                int xPosition = ((Height / 3) * eventArgs.Position.X) + 5;
+                int yPosition = ((Width / 3) * eventArgs.Position.Y) + 5;
+
+                Pen pen = new Pen(Brushes.Black, 3);
+                Rectangle rec = new Rectangle(new Point(yPosition, xPosition), new Size((Width / 3) - 10, (Height / 3) - 10));
+
+                switch (eventArgs.Symbol) {
+                    case GameSymbolType.Circle:
+                        graphics.DrawEllipse(pen, rec);
+                        break;
+
+                    case GameSymbolType.Cross:
+                        graphics.DrawRectangle(pen, rec);
+                        break;
+                }
+
+            }
+        }
+
+        public void OnTurnMade(object sender, List<TurnMadeEventArgs> eventArgsList) {
+            this.turnMadeEventArgsList = eventArgsList;
+            if (turnMadeEventArgsList.Count == 0) {
+                Invalidate();
+            } else {
+                paintSymboles();
+            }
+        }
     }
 }

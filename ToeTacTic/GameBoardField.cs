@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ToeTacTic
-{
-    class GameBoardField
-    {
-        //public Boolean isSet { get; set; }
-        public Player selectedByPlayer { get; set; }
+namespace ToeTacTic {
+    class GameBoardField {
+
+        public Player selectedByPlayer {
+            get;
+            set;
+        }
     }
 }
