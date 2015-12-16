@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ToeTacTic.Objects;
 
 namespace ToeTacTic {
     class Player {
@@ -14,14 +15,14 @@ namespace ToeTacTic {
             get;
             set;
         }
-        public GameSymbolType Symbole {
+        public GameSymbol Symbol {
             get;
             set;
         }
 
-        public Player(String name, GameSymbolType symbole) {
+        public Player(String name, GameSymbol symbole) {
             this.Name = name;
-            this.Symbole = symbole;
+            this.Symbol = symbole;
             this.Score = new GameScore();
         }
     }

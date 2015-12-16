@@ -14,7 +14,7 @@ namespace ToeTacTic {
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e) {
+        private void ButtonStart_Click(object sender, EventArgs e) {
             if (textBox1.Text == "" || textBox2.Text == "") {
                 MessageBox.Show("Bitte gebe beide Spielernamen ein");
                 return;
@@ -25,11 +25,20 @@ namespace ToeTacTic {
                 return;
             }
 
+            Visible = false;
+
             TicTacToeForm gameWin = new TicTacToeForm(textBox1.Text, textBox2.Text);
             gameWin.ShowDialog();
 
+            // Dieser Teil wird erst ausgeführt, wenn der TicTacToeForm Thread beendet wurde.
             Close();
             Dispose();
+        }
+
+        private void StartForm_KeyDown(object sender, KeyEventArgs e) {
+            if (e.KeyCode == Keys.Enter) {
+                ButtonStart_Click(this, e);
+            }
         }
     }
 }

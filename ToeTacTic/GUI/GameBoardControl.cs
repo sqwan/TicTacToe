@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ToeTacTic.Objects;
+using ToeTacTic.Events;
 
 namespace ToeTacTic {
     public partial class GameBoardControl : UserControl {
@@ -54,7 +56,7 @@ namespace ToeTacTic {
                 positionY += rectHeight;
                 positionX = 0;
             }
-            paintSymboles();
+            PaintSymboles();
         }
 
         private void GameBoardControl_Click(object sender, EventArgs e) {
@@ -69,23 +71,27 @@ namespace ToeTacTic {
             FieldClicked.Invoke(this, new Point(row, column));
         }
 
-        public void paintSymboles() {
+        public void PaintSymboles() {
             Graphics graphics = this.CreateGraphics();
             foreach (TurnMadeEventArgs eventArgs in turnMadeEventArgsList) {
                 int xPosition = ((Height / 3) * eventArgs.Position.X) + 5;
                 int yPosition = ((Width / 3) * eventArgs.Position.Y) + 5;
 
+                int heightAField = Height / 3;
+                int widthAField = Width / 3;
+
                 Pen pen = new Pen(Brushes.Black, 3);
-                Rectangle rec = new Rectangle(new Point(yPosition, xPosition), new Size((Width / 3) - 10, (Height / 3) - 10));
+                Rectangle rec = new Rectangle(new Point(yPosition, xPosition), new Size(widthAField - 10, heightAField - 10));
 
                 switch (eventArgs.Symbol) {
-                    case GameSymbolType.Circle:
+                    case GameSymbol.Circle:
                         graphics.DrawEllipse(pen, rec);
-                        break;
+                    break;
 
-                    case GameSymbolType.Cross:
-                        graphics.DrawRectangle(pen, rec);
-                        break;
+                    case GameSymbol.Cross:
+                        graphics.DrawLine(pen, new Point(yPosition, xPosition + widthAField - 10), new Point(yPosition + heightAField - 10, xPosition));
+                        graphics.DrawLine(pen, new Point(yPosition + 5, xPosition + 5), new Point(yPosition + (widthAField - 10), xPosition + (widthAField - 10)));
+                    break;
                 }
 
             }
@@ -96,7 +102,7 @@ namespace ToeTacTic {
             if (turnMadeEventArgsList.Count == 0) {
                 Invalidate();
             } else {
-                paintSymboles();
+                PaintSymboles();
             }
         }
     }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ToeTacTic {
+namespace ToeTacTic.Events {
     public class GameStateEventArgs {
         public string CurrentPlayerName;
         public string CurrentPlayerWins;

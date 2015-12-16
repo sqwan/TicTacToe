@@ -3,19 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ToeTacTic
-{
-    class GameVerifierFactory
-    {
-        VerifierType verifierType;
+namespace ToeTacTic {
+    class GameVerifierFactory {
+        private VerifierType verifierType;
 
-        public GameVerifierFactory(VerifierType verifierType)
-        {
+        public GameVerifierFactory(VerifierType verifierType) {
             this.verifierType = verifierType;
         }
 
-        public GameVerifier getVerifier(GameBoard board)
-        {
+        public GameVerifier GetVerifier(GameBoard board) {
             //return (this.verifierType == VerifierType.Classic) ? new GameVerifier(board) : new GameVerifier(board);
             return new GameVerifier(board);
         }

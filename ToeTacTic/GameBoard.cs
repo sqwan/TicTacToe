@@ -11,11 +11,11 @@ namespace ToeTacTic {
             get;
             private set;
         }
-        private GameVerifier Verifier;
+        private GameVerifier verifier;
 
         public GameBoard(GameVerifierFactory verifierFactory, int rowsAndColums = 3) {
             this.GameBoardArray = new GameBoardField[rowsAndColums, rowsAndColums];
-            this.Verifier = verifierFactory.getVerifier(this);
+            this.verifier = verifierFactory.GetVerifier(this);
 
             // Array  befüllen
             ClearGameBoardFieldArray();
@@ -29,17 +29,17 @@ namespace ToeTacTic {
             }   
         }
 
-        public GameState insertMoveInGameBoard(Player player, Point position) {
-            if (!this.Verifier.IsMoveAllowed(position)) {
+        public GameState InsertMoveInGameBoard(Player player, Point position) {
+            if (!this.verifier.IsMoveAllowed(position)) {
                 return GameState.MoveNotAllowed;
             }
 
-            this.GameBoardArray[position.X, position.Y].selectedByPlayer = player;
+            this.GameBoardArray[position.X, position.Y].SelectedByPlayer = player;
 
-            if (this.Verifier.IsGameOver()) {
+            if (this.verifier.IsGameOver()) {
                 return GameState.GameOver;
             }
-            if (this.Verifier.isPat()) {
+            if (this.verifier.IsPat()) {
                 return GameState.Pat;
             }
             return GameState.None;

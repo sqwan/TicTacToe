@@ -11,6 +11,8 @@ namespace ToeTacTic {
         MoveDone,
         GameOver,
         Pat,
-        None
+        None,
+        Restart,
+        GiveUp
     }
 }

@@ -9,29 +9,29 @@ namespace ToeTacTic {
 
     class GameVerifier {
 
-        private GameBoardField[,] GameBoardArray;
+        private GameBoardField[,] gameBoardArray;
         public GameVerifier(GameBoard board) {
-            this.GameBoardArray = board.GameBoardArray;
+            this.gameBoardArray = board.GameBoardArray;
         }
 
         public Boolean IsGameOver() {
             for (int columnAndRowNumber = 0; columnAndRowNumber < 3; columnAndRowNumber++) {
-                if (isRowComplete(columnAndRowNumber) || isColumnComplete(columnAndRowNumber)) {
+                if (IsRowComplete(columnAndRowNumber) || IsColumnComplete(columnAndRowNumber)) {
                     return true;
                 }
             }
 
-            return isDiagonalComplete();
+            return IsDiagonalComplete();
         }
 
-        public Boolean isPat() {
+        public Boolean IsPat() {
             if (this.IsGameOver()) {
                 return false;
             }
 
             for (int row = 0; row < 3; row++) {
                 for (int column = 0; column < 3; column++) {
-                    if (GameBoardArray[row, column].selectedByPlayer == null) {
+                    if (gameBoardArray[row, column].SelectedByPlayer == null) {
                         return false;
                     }
                 }
@@ -40,7 +40,7 @@ namespace ToeTacTic {
         }
 
         public Boolean IsMoveAllowed(Point atPosition) {
-            int boardSize = GameBoardArray.GetLength(0);
+            int boardSize = gameBoardArray.GetLength(0);
 
             if (boardSize < atPosition.X || boardSize < atPosition.Y)
                 return false;
@@ -48,39 +48,39 @@ namespace ToeTacTic {
             if (atPosition.X < 0 || atPosition.Y < 0)
                 return false;
 
-            return (GameBoardArray[atPosition.X, atPosition.Y].selectedByPlayer == null);
+            return (gameBoardArray[atPosition.X, atPosition.Y].SelectedByPlayer == null);
         }
 
-        private Boolean isRowComplete(int rowNumber) {
-            if (GameBoardArray[rowNumber, 0].selectedByPlayer == GameBoardArray[rowNumber, 1].selectedByPlayer && GameBoardArray[rowNumber, 1].selectedByPlayer == GameBoardArray[rowNumber, 2].selectedByPlayer && GameBoardArray[rowNumber, 0].selectedByPlayer != null)
+        private Boolean IsRowComplete(int rowNumber) {
+            if (gameBoardArray[rowNumber, 0].SelectedByPlayer == gameBoardArray[rowNumber, 1].SelectedByPlayer && gameBoardArray[rowNumber, 1].SelectedByPlayer == gameBoardArray[rowNumber, 2].SelectedByPlayer && gameBoardArray[rowNumber, 0].SelectedByPlayer != null)
                 return true;
             return false;
         }
 
-        private Boolean isColumnComplete(int columnNumber) {
-            if (GameBoardArray[0, columnNumber].selectedByPlayer == GameBoardArray[1, columnNumber].selectedByPlayer && GameBoardArray[1, columnNumber].selectedByPlayer == GameBoardArray[2, columnNumber].selectedByPlayer && GameBoardArray[0, columnNumber].selectedByPlayer != null)
+        private Boolean IsColumnComplete(int columnNumber) {
+            if (gameBoardArray[0, columnNumber].SelectedByPlayer == gameBoardArray[1, columnNumber].SelectedByPlayer && gameBoardArray[1, columnNumber].SelectedByPlayer == gameBoardArray[2, columnNumber].SelectedByPlayer && gameBoardArray[0, columnNumber].SelectedByPlayer != null)
                 return true;
             return false;
         }
 
-        private Boolean isDiagonalComplete() {
+        private Boolean IsDiagonalComplete() {
             Boolean diagonalComplete = false;
 
             // Überprüfen, ob von oben Links bis unten Rechts die gleichen Symbole sind
-            if (GameBoardArray[0, 0].selectedByPlayer != null) {
+            if (gameBoardArray[0, 0].SelectedByPlayer != null) {
                 diagonalComplete = true;
 
                 for (int i = 0; i < 2; i++) {
-                    if (GameBoardArray[i, i].selectedByPlayer != GameBoardArray[i + 1, i + 1].selectedByPlayer)
+                    if (gameBoardArray[i, i].SelectedByPlayer != gameBoardArray[i + 1, i + 1].SelectedByPlayer)
                         diagonalComplete = false;
                 }
             }
 
-            if (GameBoardArray[0, 2].selectedByPlayer != null && !diagonalComplete) {
+            if (gameBoardArray[0, 2].SelectedByPlayer != null && !diagonalComplete) {
                 diagonalComplete = true;
 
                 for (int i = 0; i < 2; i++) {
-                    if (GameBoardArray[i, 2 - i].selectedByPlayer != GameBoardArray[i + 1, 2 - (i + 1)].selectedByPlayer)
+                    if (gameBoardArray[i, 2 - i].SelectedByPlayer != gameBoardArray[i + 1, 2 - (i + 1)].SelectedByPlayer)
                         diagonalComplete = false;
                 }
             }

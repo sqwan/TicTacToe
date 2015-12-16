@@ -44,42 +44,43 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EnumTest.cs" />
-    <Compile Include="TicTacToeForm.cs">
+    <Compile Include="Objects\GameState.cs" />
+    <Compile Include="GUI\TicTacToeForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TicTacToeForm.Designer.cs">
+    <Compile Include="GUI\TicTacToeForm.Designer.cs">
       <DependentUpon>TicTacToeForm.cs</DependentUpon>
     </Compile>
     <Compile Include="GameBoard.cs" />
-    <Compile Include="GameBoardControl.cs">
+    <Compile Include="GUI\GameBoardControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GameBoardControl.Designer.cs">
+    <Compile Include="GUI\GameBoardControl.Designer.cs">
       <DependentUpon>GameBoardControl.cs</DependentUpon>
     </Compile>
     <Compile Include="GameBoardField.cs" />
     <Compile Include="GameController.cs" />
-    <Compile Include="GameScore.cs" />
-    <Compile Include="GameStateEventArgs.cs" />
-    <Compile Include="GameSymbolType.cs" />
+    <Compile Include="Objects\GameScore.cs" />
+    <Compile Include="Events\GameStateEventArgs.cs" />
+    <Compile Include="Objects\GameSymbolExtension.cs" />
+    <Compile Include="Objects\GameSymbol.cs" />
     <Compile Include="GameVerifier.cs" />
     <Compile Include="GameVerifierFactory.cs" />
-    <Compile Include="Player.cs" />
+    <Compile Include="Objects\Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StartForm.cs">
+    <Compile Include="GUI\StartForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="StartForm.Designer.cs">
+    <Compile Include="GUI\StartForm.Designer.cs">
       <DependentUpon>StartForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="TurnMadeEventArgs.cs" />
-    <Compile Include="VerifierType.cs" />
-    <EmbeddedResource Include="TicTacToeForm.resx">
+    <Compile Include="Events\TurnMadeEventArgs.cs" />
+    <Compile Include="Objects\VerifierType.cs" />
+    <EmbeddedResource Include="GUI\TicTacToeForm.resx">
       <DependentUpon>TicTacToeForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GameBoardControl.resx">
+    <EmbeddedResource Include="GUI\GameBoardControl.resx">
       <DependentUpon>GameBoardControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -91,9 +92,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="StartForm.resx">
+    <EmbeddedResource Include="GUI\StartForm.resx">
       <DependentUpon>StartForm.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

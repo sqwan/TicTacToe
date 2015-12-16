@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ToeTacTic {
     class GameBoardField {
 
-        public Player selectedByPlayer {
+        public Player SelectedByPlayer {
             get;
             set;
         }
