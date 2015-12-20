@@ -1,7 +1,5 @@
-namespace ToeTacTic
-{
-    partial class TicTacToeForm
-    {
+namespace ToeTacTic {
+    partial class TicTacToeForm {
         /// <summary>
         /// Erforderliche Designervariable.
         /// </summary>
@@ -11,10 +9,8 @@ namespace ToeTacTic
         /// Verwendete Ressourcen bereinigen.
         /// </summary>
         /// <param name="disposing">True, wenn verwaltete Ressourcen gelöscht werden sollen; andernfalls False.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
+        protected override void Dispose(bool disposing) {
+            if (disposing && (components != null)) {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -26,9 +22,8 @@ namespace ToeTacTic
         /// Erforderliche Methode für die Designerunterstützung.
         /// Der Inhalt der Methode darf nicht mit dem Code-Editor geändert werden.
         /// </summary>
-        private void InitializeComponent()
-        {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+        private void InitializeComponent() {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.playername = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -37,7 +32,7 @@ namespace ToeTacTic
             this.symbol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.Button = new System.Windows.Forms.Button();
+            this.button = new System.Windows.Forms.Button();
             this.control = new ToeTacTic.GameBoardControl();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -48,7 +43,7 @@ namespace ToeTacTic
             this.groupBox1.Controls.Add(this.dataGridView1);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.Button);
+            this.groupBox1.Controls.Add(this.button);
             this.groupBox1.Location = new System.Drawing.Point(264, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(270, 238);
@@ -74,9 +69,9 @@ namespace ToeTacTic
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Transparent;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
-            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Transparent;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
+            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.dataGridView1.ShowCellErrors = false;
             this.dataGridView1.Size = new System.Drawing.Size(254, 82);
@@ -129,22 +124,22 @@ namespace ToeTacTic
             this.label1.TabIndex = 1;
             this.label1.Text = "Spieler am Zug: ";
             // 
-            // Button
+            // button
             // 
-            this.Button.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.Button.FlatAppearance.BorderColor = System.Drawing.Color.DimGray;
-            this.Button.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ButtonShadow;
-            this.Button.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.ScrollBar;
-            this.Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Button.Location = new System.Drawing.Point(6, 170);
-            this.Button.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
-            this.Button.Name = "Button";
-            this.Button.Size = new System.Drawing.Size(258, 62);
-            this.Button.TabIndex = 0;
-            this.Button.Text = "Aufgeben";
-            this.Button.UseVisualStyleBackColor = false;
-            this.Button.Click += new System.EventHandler(this.Button_Click);
-            this.Button.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Button_MouseUp);
+            this.button.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.button.FlatAppearance.BorderColor = System.Drawing.Color.DimGray;
+            this.button.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.button.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.ScrollBar;
+            this.button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button.Location = new System.Drawing.Point(6, 170);
+            this.button.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
+            this.button.Name = "button";
+            this.button.Size = new System.Drawing.Size(258, 62);
+            this.button.TabIndex = 0;
+            this.button.Text = "Aufgeben";
+            this.button.UseVisualStyleBackColor = false;
+            this.button.Click += new System.EventHandler(this.Button_Click);
+            this.button.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Button_MouseUp);
             // 
             // control
             // 
@@ -163,6 +158,7 @@ namespace ToeTacTic
             this.MinimumSize = new System.Drawing.Size(370, 160);
             this.Name = "TicTacToeForm";
             this.Text = "TicTacToe";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TicTacToeForm_FormClosing);
             this.Load += new System.EventHandler(this.TicTacToeForm_Load);
             this.Resize += new System.EventHandler(this.TicTacToeForm_Resize);
             this.groupBox1.ResumeLayout(false);
@@ -176,7 +172,7 @@ namespace ToeTacTic
 
         private GameBoardControl control;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button Button;
+        private System.Windows.Forms.Button button;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dataGridView1;

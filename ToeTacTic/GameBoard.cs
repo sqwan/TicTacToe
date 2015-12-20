@@ -21,6 +21,9 @@ namespace ToeTacTic {
             ClearGameBoardFieldArray();
         }
 
+        /// <summary>
+        /// Diese Methode setzt alle Spielfelder zurück. Nur im Backend!
+        /// </summary>
         public void ClearGameBoardFieldArray() {
             for (int i = 0; i < GameBoardArray.GetLength(0); i++) {
                 for (int j = 0; j < GameBoardArray.GetLength(1); j++) {

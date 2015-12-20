@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace ToeTacTic {
     public enum GameState {
-        MoveNotAllowed,
-        MoveAllowed,
-        MoveDone,
-        GameOver,
-        Pat,
-        None,
-        Restart,
-        GiveUp
+        MoveNotAllowed = 0,
+        MoveAllowed = 1,
+        MoveDone = 2,
+        GameOver = 3,
+        Pat = 4,
+        None = 5,
+        Restart = 6,
+        GiveUp = 7
     }
 }

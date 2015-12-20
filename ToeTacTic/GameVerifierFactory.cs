@@ -4,6 +4,10 @@ using System.Linq;
 using System.Text;
 
 namespace ToeTacTic {
+
+    /// <summary>
+    /// Mit dieser Klasse bestimmt man den GameVerifier. Es ist also möglich andere Spielregeln für das Spiel festzulegen.
+    /// </summary>
     class GameVerifierFactory {
         private VerifierType verifierType;
 
@@ -12,7 +16,10 @@ namespace ToeTacTic {
         }
 
         public GameVerifier GetVerifier(GameBoard board) {
-            //return (this.verifierType == VerifierType.Classic) ? new GameVerifier(board) : new GameVerifier(board);
+            if (this.verifierType == VerifierType.Classic) {
+                return new GameVerifier(board);
+            }
+            // Da wir derzeit nur einen Verifier haben, muss das so bleiben
             return new GameVerifier(board);
         }
     }

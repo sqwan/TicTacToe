@@ -23,28 +23,29 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.ButtonStart = new System.Windows.Forms.Button();
+            this.buttonStart = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
             // 
-            // ButtonStart
+            // buttonStart
             // 
-            this.ButtonStart.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ButtonStart.FlatAppearance.BorderColor = System.Drawing.Color.DimGray;
-            this.ButtonStart.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ButtonShadow;
-            this.ButtonStart.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.ScrollBar;
-            this.ButtonStart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ButtonStart.Location = new System.Drawing.Point(12, 141);
-            this.ButtonStart.Name = "ButtonStart";
-            this.ButtonStart.Size = new System.Drawing.Size(226, 40);
-            this.ButtonStart.TabIndex = 0;
-            this.ButtonStart.Text = "Starten";
-            this.ButtonStart.UseVisualStyleBackColor = false;
-            this.ButtonStart.Click += new System.EventHandler(this.ButtonStart_Click);
+            this.buttonStart.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.buttonStart.FlatAppearance.BorderColor = System.Drawing.Color.DimGray;
+            this.buttonStart.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.buttonStart.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.ScrollBar;
+            this.buttonStart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonStart.Location = new System.Drawing.Point(12, 141);
+            this.buttonStart.Name = "buttonStart";
+            this.buttonStart.Size = new System.Drawing.Size(226, 40);
+            this.buttonStart.TabIndex = 0;
+            this.buttonStart.Text = "Starten";
+            this.buttonStart.UseVisualStyleBackColor = false;
+            this.buttonStart.Click += new System.EventHandler(this.ButtonStart_Click);
             // 
             // textBox1
             // 
@@ -52,6 +53,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(160, 20);
             this.textBox1.TabIndex = 1;
+            this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnKeyDown);
             // 
             // textBox2
             // 
@@ -59,6 +61,7 @@
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(160, 20);
             this.textBox2.TabIndex = 2;
+            this.textBox2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnKeyDown);
             // 
             // label1
             // 
@@ -88,21 +91,33 @@
             this.label3.TabIndex = 5;
             this.label3.Text = "Spielernamen";
             // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(203, 184);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(35, 13);
+            this.linkLabel1.TabIndex = 6;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "About";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
             // StartForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(250, 195);
+            this.ClientSize = new System.Drawing.Size(250, 207);
+            this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.ButtonStart);
+            this.Controls.Add(this.buttonStart);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "StartForm";
             this.Text = "TicTacToe";
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.StartForm_KeyDown);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnKeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -110,11 +125,12 @@
 
         #endregion
 
-        private System.Windows.Forms.Button ButtonStart;
+        private System.Windows.Forms.Button buttonStart;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.LinkLabel linkLabel1;
     }
 }

@@ -33,6 +33,7 @@
             this.Size = new System.Drawing.Size(167, 142);
             this.Click += new System.EventHandler(this.GameBoardControl_Click);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.GameBoardControl_Paint);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.GameBoardControl_KeyPress);
             this.ResumeLayout(false);
 
         }
