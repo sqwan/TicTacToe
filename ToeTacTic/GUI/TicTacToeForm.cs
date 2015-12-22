@@ -45,8 +45,6 @@ namespace ToeTacTic {
             // Spielernamen in die Tabelle füllen
             dataGridView1.Rows.Insert(0, player1.Name, 0, 0, GameSymbolExtension.ToFriendlyString(player1.Symbol));
             dataGridView1.Rows.Insert(1, player2.Name, 0, 0, GameSymbolExtension.ToFriendlyString(player2.Symbol));
-            // Location setzen
-            dataGridView1.SetBounds(10, label2.Location.Y + label2.Height + 10, (Width - control.Width - 2 * control.Location.X - 50), dataGridView1.Height);
         }
 
         private void TicTacToeForm_Resize(object sender, EventArgs e) {
@@ -54,18 +52,18 @@ namespace ToeTacTic {
             int width = height; // Die Höhe und Breite sollen immer gleich groß sein
 
             control.Width = ((int)width / 3) * 3 - 2;
-            control.Height = ((int)height / 3) * 3 - 2;
+            control.Height = ((int)height / 3) * 3 - 2 - 20;
             control.Invalidate();
 
             // Groupbox neu setzen
             Point controlPoint = control.Location;
-            groupBox1.SetBounds((control.Width + 2 * controlPoint.X), controlPoint.Y, (Width - control.Width - 2 * controlPoint.X - 30), Height - 60);
+            groupBox1.SetBounds((control.Width + 2 * controlPoint.X), controlPoint.Y, 270, Height - 60 - 20);
+            //groupBox1.SetBounds((control.Width + 2 * controlPoint.X), controlPoint.Y, (Width - control.Width - 2 * controlPoint.X - 30), Height - 60);
 
             // Neustart / Aufgeben Knopf validieren
             button.SetBounds(10, ((groupBox1.Height / 4) * 3) - 10, groupBox1.Width - 20, groupBox1.Height / 4);
 
-            // DataGrid neu setzen
-            dataGridView1.SetBounds(10, label2.Location.Y + label2.Height + 10, (Width - control.Width - 2 * controlPoint.X - 50), dataGridView1.Height);
+            groupBox2.SetBounds((control.Width + groupBox1.Width + 3 * controlPoint.X), controlPoint.Y, (Width - 270 - control.Width - 3 * controlPoint.X - 30), Height - 60 - 20);
         }
 
         private void Button_Click(object sender, EventArgs e) {
@@ -74,14 +72,17 @@ namespace ToeTacTic {
             if (button.Text == "Aufgeben") {
                 controller.GiveUp();
                 button.Text = "Neustart";
+                resetToolStripMenuItem.Text = "Neustart";
             } else if (button.Text == "Neustart") {
                 controller.ResetGameBoard();
                 button.Text = "Aufgeben";
+                resetToolStripMenuItem.Text = "Aufgeben";
+                logListBox.Items.Clear();
             }
         }
 
         private void OnNotifyGameStateChanged(Object sender, GameStateEventArgs args) {
-            label2.Text = args.CurrentPlayerName;
+            label2.Text = args.LastPlayerName;
 
             if (args.GameStatus == GameState.GameOver || args.GameStatus == GameState.GiveUp || args.GameStatus == GameState.Pat) {
                 label2.Text = "--";
@@ -94,6 +95,17 @@ namespace ToeTacTic {
                 dataGridView1.Rows[1].Cells[1].Value = player2.Score.Wins;
                 dataGridView1.Rows[1].Cells[2].Value = player2.Score.Defeats;
                 dataGridView1.EndEdit();
+            }
+
+            // Spielzüge loggen
+            if ((args.Position.X > -1 && args.Position.Y > -1))
+            {
+                // TODO: 'Dirty' Hack ersetzen (Event aus GameController.OnFieldClick nach GameController.Turn verschieben)
+                string message = "Spieler '" + args.CurrentPlayerName + "' => ( " + (args.Position.Y + 1) + " | " + (args.Position.X + 1) + " )";
+                if (!logListBox.Items.Contains(message))
+                {
+                    logListBox.Items.Add(message);
+                }
             }
 
             // Abfrage welcher GameStatus gemacht wurde
@@ -127,6 +139,33 @@ namespace ToeTacTic {
             if (result == DialogResult.No) {
                 e.Cancel = true;
             }
+        }
+
+        private void beendenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void resetToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (resetToolStripMenuItem.Text == "Aufgeben")
+            {
+                controller.GiveUp();
+                resetToolStripMenuItem.Text = "Neustart";
+                button.Text = "Neustart";
+            }
+            else if (resetToolStripMenuItem.Text == "Neustart")
+            {
+                controller.ResetGameBoard();
+                resetToolStripMenuItem.Text = "Aufgeben";
+                button.Text = "Aufgeben";
+                logListBox.Items.Clear();
+            }
+        }
+
+        private void aboutInfoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Über dieses Programm:\n*************************\nEs handelt sich hierbei um eine Tic Tac Toe Implementation, die im Rahmen eines Schulprojektes entstanden ist.\n\nBeschreibung:\n***************\nSchule: Georg-Simon-Ohm Berufskolleg\nKlasse: FIA41\nFach: Anwendungsentwicklung\nLehrer: Herr Folkmann\nTechnologien: C# .NET, WinForms, GDI+\n\n(c) 2015 by Marian Ebert, Jan Höck & Thomas Schumacher. Alle Rechte vorbehalten.", "About us", MessageBoxButtons.OK);
         }
     }
 }

@@ -46,9 +46,25 @@ namespace ToeTacTic {
          * Diese Methode liefert den aktuellen GameStatus zurück 
          * 
          */
-        public GameStateEventArgs GetGameStatusAsEventArgs() {
+        public GameStateEventArgs GetGameStatusAsEventArgs(Point position) {
             return new GameStateEventArgs() {
+                Position = position,
                 CurrentPlayerName = this.player[this.currentPlayer].Name,
+                LastPlayerName = this.player[1 - this.currentPlayer].Name,
+                CurrentPlayerWins = this.player[this.currentPlayer].Score.Wins + "",
+                CurrentPlayerDefeats = this.player[this.currentPlayer].Score.Defeats + "",
+                CurrentPlayerPats = this.player[this.currentPlayer].Score.Pats + "",
+                GameStatus = this.gameState
+            };
+        }
+
+        public GameStateEventArgs GetGameStatusAsEventArgs()
+        {
+            return new GameStateEventArgs()
+            {
+                Position = new Point(-1, -1),
+                CurrentPlayerName = this.player[this.currentPlayer].Name,
+                LastPlayerName = this.player[1 - this.currentPlayer].Name,
                 CurrentPlayerWins = this.player[this.currentPlayer].Score.Wins + "",
                 CurrentPlayerDefeats = this.player[this.currentPlayer].Score.Defeats + "",
                 CurrentPlayerPats = this.player[this.currentPlayer].Score.Pats + "",
@@ -64,7 +80,8 @@ namespace ToeTacTic {
         /// <param name="point">Die Stelle wo der aktuelle Spieler einen Zug gemacht hat</param>
         public void Turn(Player player, Point point) {
             // Abfrage ob das Spiel bereits um ist bzw. ob ein Unentschieden erzielt wurde
-            if (this.gameState == GameState.GameOver || this.gameState == GameState.Pat) {
+            if (this.gameState == GameState.GameOver || this.gameState == GameState.Pat || this.gameState == GameState.GiveUp)
+            {
                 return;
             }
 
@@ -87,11 +104,14 @@ namespace ToeTacTic {
                 Color = Color.Red
             });
             TurnMade.Invoke(this, turnMadeEventArgsList);
+            
 
             // Wenn das Spiel vorbei ist, wird die Statistik hochgezählt
             if (this.gameState == GameState.GameOver) {
                 this.player[this.currentPlayer].Score.Wins++;
                 this.player[1 - this.currentPlayer].Score.Defeats++;
+                this.currentPlayer = 1 - this.currentPlayer;
+                NotifyGameStateChanged.Invoke(this, GetGameStatusAsEventArgs(point));
                 return;
             }
 
@@ -99,9 +119,12 @@ namespace ToeTacTic {
             if (this.gameState == GameState.Pat) {
                 this.player[this.currentPlayer].Score.Pats++;
                 this.player[1 - this.currentPlayer].Score.Pats++;
+                this.currentPlayer = 1 - this.currentPlayer;
+                NotifyGameStateChanged.Invoke(this, GetGameStatusAsEventArgs(point));
                 return;
             }
             this.currentPlayer = 1 - this.currentPlayer;
+            NotifyGameStateChanged.Invoke(this, GetGameStatusAsEventArgs(point));
         }
 
         /// <summary>
@@ -137,7 +160,7 @@ namespace ToeTacTic {
             Turn(player[currentPlayer], point);
 
             // Event feuern
-            NotifyGameStateChanged.Invoke(this, GetGameStatusAsEventArgs());
+            //NotifyGameStateChanged.Invoke(this, GetGameStatusAsEventArgs(point));
         }
     }
 }

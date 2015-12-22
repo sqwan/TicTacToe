@@ -24,12 +24,6 @@ namespace ToeTacTic {
         /// Überprüfung ob beide Spielernamen unterschiedlich sind. Falls alles Valide ist, wird das Spiel gestartet.
         /// </summary>
         private void ButtonStart_Click(object sender, EventArgs e) {
-            // Wenn aus der IDE gestartet, dann automatisch Spielernamen eingeben
-            if (System.Diagnostics.Debugger.IsAttached) {
-                textBox1.Text = "Rudolf";
-                textBox2.Text = "Peter";
-            }
-
             if (textBox1.Text == "" || textBox2.Text == "") {
                 MessageBox.Show("Bitte gebe beide Spielernamen ein");
                 return;
